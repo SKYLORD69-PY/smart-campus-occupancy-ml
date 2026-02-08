@@ -1,119 +1,94 @@
-# 🎓 Smart Campus Classroom Occupancy Prediction
+# 🎓 Campus Occupancy Prediction System
 
-A production-style machine learning pipeline that predicts classroom occupancy and overcrowding risk in a university environment. This project demonstrates ETL engineering, traditional ML modeling, SQL-backed storage, and an interactive dashboard.
+A production-style machine learning pipeline for predicting classroom attendance and overcrowding in a university campus.
 
----
-
-## 🧠 Project Overview
-
-Universities often allocate classrooms without accurate attendance forecasting. This leads to overcrowded rooms, underutilized venues, and inefficient scheduling.
-
-This project builds a predictive system that:
-
-- estimates classroom occupancy  
-- detects overcrowding risk  
-- visualizes campus utilization  
-- supports real-time predictions  
-- maintains a retrainable ML lifecycle  
-
-The emphasis is not only model performance, but engineering a maintainable ML pipeline beyond notebooks.
+This project demonstrates **data engineering + ML deployment + dashboarding + model lifecycle management**, not just model training. It simulates how a real institutional analytics system would be built and maintained.
 
 ---
 
-## 🏗 Architecture
+## 🚀 Project Goals
+
+* Predict classroom attendance
+* Detect overcrowded classes
+* Build a reusable ML pipeline
+* Store and ingest data via SQL (Snowflake-ready)
+* Provide an interactive dashboard
+* Maintain versioned models
+* Demonstrate model lifecycle engineering
+
+This project focuses on **engineering robustness**, not just accuracy.
+
+---
+
+## 🧠 Models Used
+
+* Linear Regression → attendance prediction
+* Random Forest Regressor → attendance prediction
+* SVM Classifier → overcrowding detection
+
+Additional techniques:
+
+* SMOTE class balancing
+* feature engineering
+* evaluation via MAE / RMSE / R² / Accuracy / Classification Report
+
+---
+
+## 📊 Dashboard Features
+
+The Streamlit dashboard includes:
+
+* exploratory data analysis
+* utilization visualization
+* model performance reports
+* confusion matrix
+* live predictions
+* attendance estimation
+* overcrowding warning system
+
+Run dashboard:
 
 ```
-Data Generator → SQL Storage → Training Pipeline → Model Registry → Dashboard
+streamlit run dashboard/app.py
 ```
-
-This mirrors a real ETL-style ML production system:
-
-**Extract** → synthetic campus data  
-**Transform** → preprocessing + feature engineering  
-**Load** → SQL + serialized models + dashboard deployment  
 
 ---
 
-## 📊 Models Implemented
+## 🏗 Repository Structure
 
-| Model | Purpose |
-|------|---------|
-Linear Regression | Attendance prediction |
-Random Forest Regressor | Attendance prediction |
-SVM Classifier | Overcrowding detection |
-
-Evaluation includes:
-
-- MAE / R²  
-- Accuracy  
-- Classification report  
-- Confusion matrix  
+```
+campus-occupancy-ml/
+│
+├── dashboard/         # Streamlit UI
+├── database/          # Snowflake ingestion scripts
+├── scripts/           # data + training pipeline
+├── models/            # model metadata & versioning
+├── sample_data/       # reproducible demo dataset
+├── README.md
+├── requirements.txt
+└── .gitignore
+```
 
 ---
 
-## 📈 Dashboard Features
-
-The interactive Streamlit dashboard provides:
-
-- attendance analytics  
-- venue utilization insights  
-- overcrowding risk visualization  
-- model performance metrics  
-- confusion matrix display  
-- live prediction interface  
-
-Users can input class parameters and instantly receive safety predictions.
-
----
-
-## 🔄 Model Lifecycle
-
-The system supports periodic retraining:
-
-- new data appended  
-- model retrained  
-- new version stored  
-- dashboard loads latest model  
-- previous versions archived  
-
-This simulates real-world ML maintenance workflows.
-
----
-
-## 📦 Dataset Policy
-
-No CSV datasets are stored in this repository.
-
-A reproducible generator script is provided:
-
-```
-data_generator/generate_data.py
-```
-
-Running this script recreates the full dataset.
-
-This ensures reproducibility and complies with repository size rules.
-
----
-
-## ⚙️ Quick Start
-
-Install dependencies:
-
-```
-pip install -r requirements.txt
-```
+## 🔁 Reproducible Pipeline
 
 Generate dataset:
 
 ```
-python data_generator/generate_data.py
+python scripts/generate_data.py
 ```
 
 Train models:
 
 ```
-python training/train_models.py
+python scripts/train.py
+```
+
+Run predictions:
+
+```
+python scripts/predict.py
 ```
 
 Run dashboard:
@@ -124,29 +99,110 @@ streamlit run dashboard/app.py
 
 ---
 
-## 📁 Repository Structure
+## 🧩 Model Versioning
+
+Models are versioned using metadata JSON.
+
+Binary model files are **not committed** to the repository to keep it lightweight and reproducible.
+
+Instead:
+
+* models are regenerated via training script
+* metadata describes model version
+* lifecycle is tracked through commits
+
+This mirrors real-world ML deployment practices.
+
+---
+
+## 🗄 SQL Integration (Snowflake)
+
+The project includes a Snowflake ingestion template:
 
 ```
-data_generator/    dataset synthesis
-database/          SQL ingestion scripts
-training/          preprocessing + model training
-models/            model registry metadata
-dashboard/         Streamlit application
-notebooks/         experimentation
+database/snowflake_ingest.py
+```
+
+This demonstrates how synthetic campus data would be uploaded into a SQL warehouse for continuous retraining.
+
+Credentials are intentionally excluded for security.
+
+---
+
+## 🎯 Engineering Focus
+
+This project emphasizes:
+
+✔ pipeline design
+✔ maintainability
+✔ version control
+✔ deployment readiness
+✔ reproducibility
+✔ modular architecture
+✔ model lifecycle management
+
+Not just model performance.
+
+---
+
+## 🧪 Synthetic Dataset
+
+The dataset is fully synthetic and reproducible via script.
+
+It simulates:
+
+* multiple schools
+* venues with capacity constraints
+* time slots
+* attendance behavior
+* overcrowding patterns
+
+No real student data is used.
+
+---
+
+## 🛠 Requirements
+
+Install dependencies:
+
+```
+pip install -r requirements.txt
 ```
 
 ---
 
-## 🧪 ETL Justification
+## 👨‍💻 Author
 
-This project implements an ETL-style ML pipeline:
-
-Extract → synthetic academic data  
-Transform → feature engineering  
-Load → SQL + model deployment  
-
-This architecture mirrors production ML systems.
+PRANAV BAGUL
 
 ---
 
+## 📌 Academic Note
 
+This repository is designed as a demonstration of **production ML engineering**:
+
+> Notebooks are replaced by scripts
+> models are versioned
+> pipelines are reproducible
+> dashboards use latest artifacts
+> SQL integration is demonstrated
+> Git history tracks lifecycle
+
+This mirrors industry ML systems.
+
+---
+
+## ⭐ Final Outcome
+
+A complete end-to-end ML system:
+
+data → SQL → training → versioning → dashboard → predictions
+
+Built like a real deployment pipeline.
+
+---
+
+If you’re reviewing this project:
+
+Thank you 🙌
+Feel free to explore the scripts and dashboard.
